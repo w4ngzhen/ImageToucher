@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageToucher", "ImageToucher\ImageToucher.csproj", "{B6B0D473-A69C-4D8B-ACCB-A9D6F9FC619E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainForm", "MainForm\MainForm.csproj", "{4324BB4D-ED67-43B9-A67B-38B2358A341F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6B0D473-A69C-4D8B-ACCB-A9D6F9FC619E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6B0D473-A69C-4D8B-ACCB-A9D6F9FC619E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6B0D473-A69C-4D8B-ACCB-A9D6F9FC619E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6B0D473-A69C-4D8B-ACCB-A9D6F9FC619E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4324BB4D-ED67-43B9-A67B-38B2358A341F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4324BB4D-ED67-43B9-A67B-38B2358A341F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4324BB4D-ED67-43B9-A67B-38B2358A341F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4324BB4D-ED67-43B9-A67B-38B2358A341F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
