@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace ImageToucher.Views.Control
 {
@@ -47,15 +48,15 @@ namespace ImageToucher.Views.Control
         /// <summary>
         /// 放大最大比例
         /// </summary>
-        private const double MAX_SCALE = 3.0;
+        private const double MAX_SCALE = 2.0;
         /// <summary>
         /// 缩小最小比例
         /// </summary>
-        private const double MIN_SCALE = 0.3;
+        private const double MIN_SCALE = 0.5;
         /// <summary>
         /// 比例变化度
         /// </summary>
-        private const double SCALE_GAP = 0.1;
+        private const double SCALE_GAP = 0.2;
         /// <summary>
         /// 鼠标进入PictureBox拖动图像状态标志
         /// </summary>
@@ -68,7 +69,7 @@ namespace ImageToucher.Views.Control
         {
             InitializeComponent();
         }
-        
+
         public Image SrcImage
         {
             get
@@ -97,14 +98,22 @@ namespace ImageToucher.Views.Control
                     if (this._scale < MAX_SCALE)
                     {
                         this._scale += SCALE_GAP;
+                        break;
                     }
-                    break;
+                    else
+                    {
+                        return;
+                    }
                 case ZoomType.ZoomOut:
                     if (this._scale > MIN_SCALE)
                     {
                         this._scale -= SCALE_GAP;
+                        break;
                     }
-                    break;
+                    else
+                    {
+                        return;
+                    }
                 case ZoomType.Origin:
                     this._scale = 1.0;
                     break;
@@ -142,9 +151,24 @@ namespace ImageToucher.Views.Control
                 this.pictureBox1.Top = heightGap / 2;
             }
             // 生成仅仅供展示的对应比例的位图
-            Image showImage = new Bitmap(_srcImage, new Size(this.pictureBox1.Width, this.pictureBox1.Height));
-            this.pictureBox1.Image = showImage;
+            //Image showImage = new Bitmap(_srcImage, this.pictureBox1.Width, this.pictureBox1.Height);
+            //this.pictureBox1.Image = showImage;
+            if (this.pictureBox1.Image != null)
+            {
+                DeleteObject((this.pictureBox1.Image as Bitmap).GetHbitmap());
+            }
+            Bitmap showImage = new Bitmap(this.pictureBox1.Width, this.pictureBox1.Height);
+            using (Graphics g = Graphics.FromImage(showImage))
+            {
+                this.pictureBox1.Image?.Dispose();
+                Rectangle rect = new Rectangle(0, 0, this.pictureBox1.Width, this.pictureBox1.Height);
+                g.DrawImage(_srcImage, rect);
+                this.pictureBox1.Image = showImage;
+            }
+            GC.Collect();
         }
+        [DllImport("gdi32.dll")]
+        private static extern bool DeleteObject(IntPtr obj);
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -186,7 +210,7 @@ namespace ImageToucher.Views.Control
             if (this._moving)
             {
                 this.pictureBox1.Left += e.X - posInPicBox.X;
-                this.pictureBox1.Top += e.Y - posInPicBox.Y; 
+                this.pictureBox1.Top += e.Y - posInPicBox.Y;
             }
         }
         /// <summary>
